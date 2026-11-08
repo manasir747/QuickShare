@@ -1,0 +1,5 @@
+/* Reset and clean up vite defaults */
+body {
+  margin: 0;
+  padding: 0;
+}
