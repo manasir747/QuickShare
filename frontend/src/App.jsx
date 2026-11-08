@@ -4,7 +4,8 @@ import QRCodeView from './QRCodeView';
 import './App.css';
 
 const MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024; // 25 MB
-const API_URL = 'http://localhost:5001/api/upload';
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5001' : '');
+const API_URL = `${API_BASE_URL}/api/upload`;
 
 function parseTransferIdFromUrl() {
   const path = window.location.pathname;

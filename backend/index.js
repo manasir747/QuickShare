@@ -206,6 +206,19 @@ app.get('/api/download/:id', (req, res) => {
   res.download(filePath, transfer.originalName);
 });
 
+// Serve static frontend build if present (Unified Single-Service Deployment)
+const frontendDist = path.join(__dirname, '../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res) => {
+    // Avoid intercepting unmatched API calls
+    if (req.path.startsWith('/api')) {
+      return res.status(404).json({ error: 'Endpoint not found' });
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);
 });

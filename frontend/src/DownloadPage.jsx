@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import QRCodeView from './QRCodeView';
 
-const API_BASE = 'http://localhost:5001';
+const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:5001' : '');
 
 export default function DownloadPage({ transferId, onGoHome }) {
   const [loading, setLoading] = useState(true);
